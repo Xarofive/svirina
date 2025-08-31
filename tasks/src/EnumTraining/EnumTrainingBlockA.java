@@ -18,33 +18,37 @@ public class EnumTrainingBlockA {
         }
 
         public String getHex() {
-            // TODO: return hex value of color
-            return null;
+            return hex;
         }
 
         @Override
         public String toString() {
-            // TODO: return string like NAME(#HEX)
-            return super.toString();
+            return name() + "(" + hex + ")";
         }
     }
 
     // --- Task 2: Parsing from string ---
     public static Color fromHex(String input) {
-        // TODO:
-        // 1. Validate format (#RRGGBB, case insensitive)
-        // 2. Find matching Color constant
-        // 3. Throw IllegalArgumentException if not found or invalid
+        if (input == null || !input.matches("^#[0-9A-Fa-f]{6}$")) {
+            throw new illegalArgumentException("Invalid hex format: " + input); 
+        }
+        for (Color c : Color.values()) {
+            if (c.hex.equalsIgnoreCase(input)) {
+                return c;
+            }
+        }
         return null;
     }
 
     // --- Task 4: Switch on enum (contrastOn) ---
     public static Color contrastOn(Color color) {
-        // TODO:
-        // Implement switch: if color is light (YELLOW, WHITE, GREEN) → return BLACK,
-        // else return WHITE.
-        return null;
-    }
+        switch(color) {
+            case YELLOW, WHITE, GREEN:
+            return BLACK;
+            default:
+                return WHITE;
+        }
+   }
 
     // --- Manual tests in main ---
     public static void main(String[] args) {
